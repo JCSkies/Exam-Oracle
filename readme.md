@@ -1,4 +1,4 @@
-# AI CS Exam Oracle (Hackathon)
+# CS Exam Oracle (Hackathon)
 
 A Streamlit app that analyzes CS course materials (notes/slides/text), surfaces high-yield topics, and generates likely exam questions.
 
