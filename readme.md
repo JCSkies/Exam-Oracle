@@ -27,6 +27,7 @@ dir
 
 - Python installed (use python.org installer)
 - VS Code + Python extension
+- Everything is done in PowerShell
 
 ### 1) Clone the repo and open it
 ```powershell
