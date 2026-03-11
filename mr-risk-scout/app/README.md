@@ -55,7 +55,7 @@ Pulls ONLY what we need from the GitLab webhook
 
 Defines what we need from a MergeRequest with action as open/update/merge/close as the main ones we'll use (discards other action types in main.py)
 
-# 6) config.py 
+# g6) config.py 
 
 Makes sure obtaining GITLAB webhook secrets and configs are only done from a single class (Single Responsibility Principle). 
 

@@ -7,6 +7,10 @@ from .gitlab_client import GitLabClient
 from .risk_engine import analyze
 from .reporter import format_comment, upsert_risk_comment
 
+from .models import DebugAnalyzeRequest
+from .risk_engine import analyze, risk_result_to_dict
+from .reporter import format_comment
+
 app = FastAPI(title="MR Risk Scout")
 
 gl = GitLabClient(base_url=settings.gitlab_base_url, token=settings.gitlab_token)
@@ -54,3 +58,17 @@ async def gitlab_webhook(
     note = await upsert_risk_comment(gl, project_id, mr_iid, comment)
 
     return {"ok": True, "risk": {"score": result.score, "level": result.level}, "note_id": note.get("id")}
+
+@app.post("/debug/analyze")
+async def debug_analyze(req: DebugAnalyzeRequest):
+    # Run the same analyzer you use for real GitLab MRs
+    result = analyze(req.changes)
+
+    # Optional: show what the MR comment would look like
+    comment_preview = format_comment(req.title or "Debug MR", result)
+
+    return {
+        "risk": risk_result_to_dict(result),
+        "comment_preview": comment_preview,
+        "changes_count": len(req.changes),
+    }

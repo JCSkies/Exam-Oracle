@@ -77,9 +77,18 @@ def analyze(changes: List[Dict[str, Any]]) -> RiskResult:
 
     score = min(10, score)
 
+
     return RiskResult(
         score=score,
         level=_level(score),
         reasons=reasons if reasons else ["No major risk signals found by basic rules."],
         stats={"file_count": file_count, "approx_churn": churn, "risky_files_count": len(risky_hits)},
     )
+
+def risk_result_to_dict(result: RiskResult) -> dict:
+    return {
+        "score": result.score,
+        "level": result.level,
+        "reasons": result.reasons,
+        "stats": result.stats,
+    }

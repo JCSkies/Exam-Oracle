@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 
 class MergeRequestAttributes(BaseModel):
@@ -32,3 +32,8 @@ class GitLabMergeRequestEvent(BaseModel):
             object_attributes=MergeRequestAttributes(**payload.get("object_attributes", {})),
             raw=payload,
         )
+    
+
+class DebugAnalyzeRequest(BaseModel):
+    title: Optional[str] = "Debug MR"
+    changes: List[Dict[str, Any]]
